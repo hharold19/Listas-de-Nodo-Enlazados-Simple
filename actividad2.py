@@ -1,5 +1,8 @@
-VER: https://repl.it/DfRN/1
+# LPIII_2016
+# Autor: HAROLD HERNANDEZ (UNEFA)
+#ver en: https://repl.it/DdBN/9
 # CLASE NODO
+
 class Nodo:
 	def __init__ (self, valor):
 		self.info = valor
@@ -71,6 +74,33 @@ class Lista:
 			print nodo.info
 			nodo=nodo.sig
 			
+
+	# Metodo Mostrar donde se movio el actual				
+	def mostrar_actual (self, pos):
+
+		nodo  = self.__primero
+		aux = 0
+		while (nodo != None) :
+			
+			if (aux == pos):
+				self.__actual=nodo
+				self.__p=aux
+				print self.__actual.info
+			
+			nodo = nodo.sig
+			aux=aux+1
+		return
+		
+
+	# Metodo para buscar un elemento determinado 
+	def buscar_elem (self,valor):
+		nodo = self.__primero
+		while(nodo!=None):
+			if(nodo.info==valor):
+				return True
+			nodo=nodo.sig
+		return False		
+
 	# Metodo para mostrar si hay elementos repetidos
 	def repetidos (self):
 		iguales = False
@@ -85,20 +115,7 @@ class Lista:
 			nodo_comparar=nodo_comparar.sig
 		print iguales#retorna True si hay elementos repetidos
 		
-	# Metodo para comparar dos listas
-	def comparar (self,comparar):
-		iguales = True
-		nodo_comparar = comparar.__primero
-		nodo = self.__primero
-		for i in range (comparar.__n):
-			if(nodo_comparar.info!=nodo.info):
-				return False
-			nodo=nodo.sig
-			nodo_comparar=nodo_comparar.sig
-		return iguales#retorna True si hay elementos iguales
-		
-	# Metodo para saber si los elementos estan ordenados (recibe por parametro si se comprueba
-	# que se odene ascendente o descendente)
+	# Metodo que comprueba si los elementos estan ordenados y muestra sin estan ascendente o decendente
 	def ordenados (self,asc):
 		orden = True
 		nodo = self.__primero
@@ -119,9 +136,8 @@ class Lista:
 				siguiente=siguiente.sig
 			nodo = nodo.sig				
 		return orden#retorna True si los elementos estan ordenados
-			
+		
 	# Metodo para saber si los elementos son consecutivos
-	## El parametro elementos corresponde al numero de consecusiones (si es de 1 en 1, de 2 en 2)
 	def consecutivos (self,elementos=1):
 		con = True
 		nodo = self.__primero
@@ -133,7 +149,7 @@ class Lista:
 				siguiente=siguiente.sig
 			nodo = nodo.sig				
 		return con#retorna True si los elementos estan consecutivos
-		
+	
 	# Metodo para sumar los enteros de una lista
 	def suma_enteros (self):
 		suma = 0
@@ -142,38 +158,21 @@ class Lista:
 			if(type(nodo.info)==int):
 				suma += nodo.info
 			nodo = nodo.sig				
-		return suma#retorna la suma de los elementos
-			
-			
-	# Metodo pos_actual	
-			
-	def pos_actual (self, pos):
-
-		nodo  = self.__primero
-		cont = 0
-		while (nodo != None) :
-			
-			if (cont == pos):
-				self.__actual=nodo
-				self.__actual=pos
-				self.__pos=cont
-				print self.__actual
-			
-			nodo = nodo.sig
-			cont=cont+1
-		return
+		return suma
 		
-
-	# Metodo para mostrar la posicion actual 
-	def buscar_elem (self,valor):
+		# Metodo para comparar dos listas
+	def comparar (self,comparar):
+		iguales = True
+		nodo_comparar = comparar.__primero
 		nodo = self.__primero
-		while(nodo!=None):
-			if(nodo.info==valor):
-				return True
+		for i in range (comparar.__n):
+			if(nodo_comparar.info!=nodo.info):
+				return False
 			nodo=nodo.sig
-		return False
-		
-	# Metodo para eliminar el primero
+			nodo_comparar=nodo_comparar.sig
+		return iguales
+	
+	# Metodo para eliminar el primero de la lista
 	def eliminar_primero(self):
 		if (self.__primero==None):
 			return
@@ -191,40 +190,84 @@ class Lista:
 
 # Crea la lista de elementos
 l = Lista()
-
+l2 = Lista()
 # Inserta elementos en la lista 
 l.insertar_actual(5);
 l.insertar_actual(10);
 l.insertar_actual(15);
 l.insertar_actual(20);
-#l.insertar_inicio(25);
-#l.insertar_actual(30);
-#l.insertar_ultimo(35);
+l.insertar_inicio(25);
+l.insertar_actual(35);
+l.insertar_ultimo(35);
+
+# Inserta elementos en la lista 2
+l2.insertar_actual(5);
+l2.insertar_actual(10);
+l2.insertar_actual(15);
+l2.insertar_actual(20);
+l2.insertar_inicio(25);
+l2.insertar_actual(35);
+l2.insertar_ultimo(35);
 
 # Muestra los elementos de la lista 
+print "Metodo para mostrar los elementos de una lista"
+print " "
 l.mostrar()
+print " "
+
+# Muestra si la lista contiene un elemento con un valor determinado
+print "Metodo para buscar un elemento determinado"
+print "Buscar el elemento: 15"
+print " "
+
 if (l.buscar_elem(15) == True):
-	print "lo encontro"
+	print "El elemento se encontro"
 else:
-	print "no lo encontro"
+	print "El elemento no se encuentra en la lista"
+
+print " "
+
+# Muestra los elementos repetidos de la lista
+print "Muestra si hay elementos repetidos"
+print " "
+l.repetidos()
+print " "
+
+
+# Muestra si estan ordenados los elementos
+print "Muestra si estan ordenados"
+print " "
+l.ordenados(True)
+print " "
+
+# Muestra si los elementos son consecutivos
+print "Muestra si los elementos son consecutivos"
+print " "
+print l.consecutivos()
+print " "
+
+# Muestra la suma de los enteros de la lista
+print "Muestra la suma de los enteros"
+print " "
+print l.suma_enteros()
+print " "
+
+# Compara 2 listas
+print "compara 2 listas"
+print " "
+l.comparar(l2)
+print (l.comparar(l2))
+print " "
+
+# Muestra los elementos que se han borrado de la lista
+print "Metodo para eliminar el primero de la lista"
+print " "
+
 l.eliminar_primero()
 l.mostrar()
-l.pos_actual(3)
-l.mostrar()
-#Si retorna True hay uno o mas elementos iguales, de lo contrario falso
-l.repetidos()
-#Se crea otra lista para probar
-otra_lista = Lista()
-otra_lista.insertar_actual(5);
-otra_lista.insertar_actual(10);
-otra_lista.insertar_actual(15);
-otra_lista.insertar_actual(20);
-otra_lista.insertar_inicio(25);
-otra_lista.insertar_actual(30);
-otra_lista.insertar_ultimo(35);
-#Si retorna True las listas son iguales, de lo contrario Falso
-l.comparar(otra_lista)
-l.ordenados(True)
-print l.consecutivos()
-print l.suma_enteros()
+print " "
 
+# Muestra la nueva posicion del actual
+print "La nueva posicion del actual es:"
+print " "
+l.mostrar_actual(2)
